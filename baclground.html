@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RobiBot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-color 0.5s ease, background-image 1s ease-in-out;
+    }
+
+    .button {
+      width: 100px;
+          height: 100px;
+              border: none;
+                  border-radius: 8px;
+                      cursor: pointer;
+                          text-align: center;
+                              color: #fff;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+                  justify-content: center;
+                          align-items: center;
+                                  background-size: cover;
+                                          background-position: center;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .button:hover {
+      transform: scale(1.1); /* تكبير الزر عند التمرير */
+    }
+
+    .button.color {
+      color: #000;
+      font-weight: bold;
+      text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // الألوان الأساسية
+    const colorButtons = [
+      { name: "White", color: "white" },
+      { name: "Black", color: "black" },
+      { name: "Yellow", color: "yellow" },
+      { name: "Blue", color: "blue" },
+      { name: "Grey", color: "grey" },
+      { name: "Red", color: "red"  },
+      { name: "Green", color: "Green" },
+            { name: "Lightblue", color: "lightblue"  },
+                  { name: "Lightgreen", color: "Lightgreen"  },
+                        { name: "Lightyellow", color: "lightyellow"  },
+                              { name: "Lightgrey", color: "lightgrey"  },
+                                    { name: "Brown", color: "brown"  },
+                                          { name: "Purple", color: "purple"  },
+                                                { name: "Gold", color: "gold"  },
+                                                      { name: "Darkgreen", color: "darkgreen"  },
+    ];
+
+    // الصور التي ستضعها بنفسك
+    const imageButtons = [
+      { name: "Stars", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714414290894928/Shared_Image.png?ex=6787b53a&is=678663ba&hm=af151fa47909f841ab56ca7ee0f36a4c172d1c9f3d8dfd4f5c3f1c2e22e9f2e6&" },
+      { name: "Stars 2", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714365175730299/IMG_4542.jpg?ex=6787b52e&is=678663ae&hm=726b0b49f871342b7c1bae2112a2be0e20f8ae77c91ae83e5ccfdc9f8bfeb0cb&" },
+      { name: "Naturel", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714097906417674/IMG_4550.jpg?ex=6787b4ef&is=6786636f&hm=dbd51c65e8bb7fd913ec2268bc64a7b00901c99c017bb7e0fa36773838c771e5&" },
+      { name: "Sea", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714071096426629/IMG_4547.jpg?ex=6787b4e8&is=67866368&hm=542775a258a74c20b93c3a85ec1f3acc944132d576d75899fc5217e007ca52cd&" },
+      { name: "Sunset", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714070609625181/IMG_4549.jpg?ex=6787b4e8&is=67866368&hm=102f091b1137c6e49014b08eb33b01b6cdb487123b641afbf5f4ab02e503290c&" },
+      { name: "Cartonsea", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714071478112398/IMG_4546.jpg?ex=6787b4e8&is=67866368&hm=bae2c401ffefc97e248963a5d5fe9bcb02dcf7b5480403982007de7249495ccd&"},
+            { name: "merior", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328714070840446976/IMG_4548.jpg?ex=6787b4e8&is=67866368&hm=50ee02e68be78e568b380d1c49ea66d386c6d8728e25da40cea23333948d9a1d&"},
+                  { name: "Mountain", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328717283123658782/IMG_4552.jpg?ex=6787b7e6&is=67866666&hm=88b68630a2f50dda72b528d8cf2211624cddd51e4f3b1f701d2bdabb7cdce77a&"},
+                        { name: "Dark", image: "https://cdn.discordapp.com/attachments/1303053154987933696/1328717220402040883/IMG_4554.jpg?ex=6787b7d7&is=67866657&hm=c4fcea25d4a4c48535a5b616fc40e5ced56b4da2218d727684dc6715b6140808&"},
+                              { name: "Image 6", image: ""},
+                                    { name: "Image 6", image: ""},
+                                          { name: "Image 6", image: ""},
+                                                { name: "Image 6", image: ""},
+                                                      { name: "Image 6", image: ""},
+                                                            { name: "Image 6", image: ""},
+                                                                  { name: "Image 6", image: ""},
+             { name: "Image 6", image: ""},
+                   { name: "Image 6", image: ""},
+                         { name: "Image 6", image: ""},
+                               { name: "Image 6", image: ""},
+                                     { name: "Image 6", image: ""},
+                                           { name: "Image 6", image: ""},
+                                                 { name: "Image 6", image: ""},
+                                                       { name: "Image 6", image: ""},
+                                                             { name: "Image 6", image: ""},
+             { name: "Soon", image: ""},
+                   { name: "Soon", image: ""},
+                         { name: "Soon", image: ""},
+                                                              
+                                                     ];
+
+    // دمج الأزرار: ألوان وصور
+    const allButtons = [
+      ...colorButtons.map((color) => ({
+        type: "color",
+        name: color.name,
+        value: color.color,
+      })),
+      ...imageButtons.map((image) => ({
+        type: "image",
+        name: image.name,
+        value: image.image,
+      })),
+    ];
+
+    // إنشاء الأزرار
+    const body = document.body;
+    allButtons.forEach((buttonData, index) => {
+      const button = document.createElement("button");
+      button.className = "button";
+      button.textContent = buttonData.name;
+
+      if (buttonData.type === "color") {
+        button.style.backgroundColor = buttonData.value;
+        button.classList.add("color");
+      } else if (buttonData.type === "image") {
+        button.style.backgroundImage = `url(${buttonData.value})`;
+      }
+
+      // عند التمرير: تغيير الخلفية مؤقتًا
+      button.addEventListener("mouseenter", () => {
+        if (buttonData.type === "color") {
+          body.style.backgroundColor = buttonData.value;
+          body.style.backgroundImage = ""; // إزالة أي صورة
+        } else {
+          body.style.backgroundImage = `url(${buttonData.value})`;
+          body.style.backgroundColor = ""; // إزالة أي لون
+        }
+      });
+
+      // إزالة التأثير عند التوقف عن التمرير
+      button.addEventListener("mouseleave", () => {
+        body.style.backgroundColor = "";
+        body.style.backgroundImage = "";
+      });
+
+      // عند الضغط: تغيير الخلفية بشكل دائم
+      button.addEventListener("click", () => {
+        if (buttonData.type === "color") {
+          body.style.backgroundColor = buttonData.value;
+          body.style.backgroundImage = "";
+        } else {
+          body.style.backgroundImage = `url(${buttonData.value})`;
+          body.style.backgroundColor = "";
+        }
+      });
+
+      body.appendChild(button);
+    });
+  </script>
+</body>
+</html>
