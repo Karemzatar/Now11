@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المهام</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; text-align: right; }
+        .task-container { display: flex; justify-content: space-between; background: #f0f0f0; padding: 10px; margin: 5px 0; }
+        button { background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .edit-button { background: blue; color: white; border: none; padding: 5px 10px; cursor: pointer; margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <h2>قائمة المهام</h2>
+    <input type="text" id="taskInput" placeholder="أدخل مهمة جديدة">
+    <button onclick="addTask()">إضافة</button>
+    <div id="taskList"></div>
+
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") return;
+            
+            let taskDiv =   document.createElement("div");
+            taskDiv.className = "task-container";
+            
+            let taskSpan = document.createElement("span");
+            taskSpan.textContent = taskText;
+            
+            let editButton = document.createElement("button");
+            editButton.textContent = "تعديل";
+            editButton.className = "edit-button";
+            editButton.onclick = function () { editTask(taskSpan); };
+            
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "حذف";
+            deleteButton.onclick = function () { taskDiv.remove(); };
+            
+            taskDiv.appendChild(taskSpan);
+            taskDiv.appendChild(editButton);
+            taskDiv.appendChild(deleteButton);
+            document.getElementById("taskList").appendChild(taskDiv);
+            
+            taskInput.value = "";
+        }
+        
+        function editTask(taskSpan) {
+            let newTaskText = prompt("تعديل المهمة", taskSpan.textContent);
+            if (newTaskText !== null && newTaskText.trim() !== "") {
+                taskSpan.textContent = newTaskText;
+            }
+        }
+    </script>
+</body>
+</html>
