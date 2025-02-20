@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dev Kareem | Product</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
+        .product { border: 1px solid #ddd; padding: 15px; width: 200px; border-radius: 8px; }
+        .product img { width: 100%; border-radius: 8px; }
+        .product h3 { margin: 10px 0; font-size: 18px; }
+        .product p { font-size: 16px; color: #555; }
+        .price { font-weight: bold; color: #e60000; }
+    </style>
+</head>
+<body>
+
+
+    <button class="reb1" id="rebj1">Back</button>
+
+    <script>
+      document.getElementById("rebj1").addEventListener("click", function() {
+          let lastPage = sessionStorage.getItem("lastPage"); // استرجاع الصفحة السابقة
+    
+          if (lastPage && lastPage !== window.location.href) {
+              window.location.href = lastPage; // إعادة التوجيه إلى الصفحة السابقة
+          } else {
+              history.back(); // خيار احتياطي في حالة عدم العثور على صفحة سابقة
+          }
+      });
+    </script>
+    <style></style>
+
+
+    <h1>Products</h1>
+    <div class="container" id="productContainer"></div>
+
+    <script>
+        // بيانات المنتجات (يمكن استبدالها بـ API أو قاعدة بيانات)
+        const products = [
+            { name: "موقع تعريفي", price: "30$", image: "https://media.discordapp.net/attachments/1303053154987933696/1338214123296657469/3c944d945965f515.png?ex=67aa4485&is=67a8f305&hm=53d405bbef1d4284644e73375dde086cdb1235560e1b7c785ee1c77107c1d2ec&=&format=webp&quality=lossless&width=692&height=389" },
+            { name: "متجر الكتروني", price: "50$", image: "https://media.discordapp.net/attachments/1303053154987933696/1338217805186600991/1.png?ex=67aa47f3&is=67a8f673&hm=ccb3370e14614cc077356a326d1f9c9369b0b09e70902093b126f7d1f934f77d&=&format=webp&quality=lossless&width=692&height=389" },
+            { name: "ادارة قناة", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ملفات", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة حسابية", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ايميلات", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ملفات", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ملفات", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ملفات", price: "50$", image: "https://via.placeholder.com/200" },
+            { name: "ادارة ملفات", price: "50$", image: "https://via.placeholder.com/200" },
+        ];
+
+        // جلب العنصر الذي سنضيف المنتجات إليه
+        const container = document.getElementById("productContainer");
+
+        // توليد المنتجات تلقائيًا
+        products.forEach(product => {
+            const productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">${product.price}</p>
+            `;
+            container.appendChild(productDiv);
+        });
+    
+    </script>
+
+</body>
+</html>
