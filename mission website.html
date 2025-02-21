@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المهام</title>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            text-align: right;
+            background-color: #eef2f3;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h2 {
+            text-align: center;
+            color: #444;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 90%;
+            max-width: 800px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .add-button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        .add-button:hover {
+            background-color: #218838;
+        }
+        .task-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1100px;
+            height: 80px;
+            font-size: 22px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .task-checkbox {
+            transform: scale(1.5);
+            margin-left: 15px;
+        }
+        .edit-button {
+            background-color: #ffc107;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+            padding: 10px 20px;
+        }
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h2>قائمة المهام</h2>
+    <input type="text" id="taskInput" placeholder="أدخل مهمة جديدة">
+    <input type="datetime-local" id="taskTime">
+    <button class="add-button" onclick="addTask()">إضافة</button>
+    <div id="taskList"></div>
+
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskTime = document.getElementById("taskTime");
+            let taskText = taskInput.value.trim();
+            let taskDeadline = new Date(taskTime.value);
+            if (taskText === "" || isNaN(taskDeadline.getTime())) return;
+            
+            let taskDiv = document.createElement("div");
+            taskDiv.className = "task-container";
+            
+            let taskCheckbox = document.createElement("input");
+            taskCheckbox.type = "checkbox";
+            taskCheckbox.className = "task-checkbox";
+            
+            let taskSpan = document.createElement("span");
+            taskSpan.textContent = `${taskText} - (Deadline: ${taskDeadline.toLocaleString('en-US')})`;
+            
+            let editButton = document.createElement("button");
+            editButton.textContent = "تعديل";
+            editButton.className = "edit-button";
+            editButton.onclick = function () { editTask(taskSpan); };
+            
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "حذف";
+            deleteButton.className = "delete-button";
+            deleteButton.onclick = function () { taskDiv.remove(); };
+            
+            taskDiv.appendChild(taskCheckbox);
+            taskDiv.appendChild(taskSpan);
+            taskDiv.appendChild(editButton);
+            taskDiv.appendChild(deleteButton);
+            document.getElementById("taskList").appendChild(taskDiv);
+            
+            setTimeout(() => {
+                if (!taskCheckbox.checked) {
+                    if (confirm("انتهى وقت المهمة، هل تود الاستمرار أم البدء بمهام أخرى؟")) {
+                        taskCheckbox.checked = false;
+                    } else {
+                        taskDiv.remove();
+                    }
+                }
+            }, taskDeadline - new Date());
+            
+            taskInput.value = "";
+            taskTime.value = "";
+        }
+        
+        function editTask(taskSpan) {
+            let newTaskText = prompt("تعديل المهمة", taskSpan.textContent.split(" - ")[0]);
+            if (newTaskText !== null && newTaskText.trim() !== "") {
+                taskSpan.textContent = newTaskText;
+            }
+        }
+    </script>
+</body>
+</html>
